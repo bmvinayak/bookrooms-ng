@@ -1,6 +1,10 @@
 /* You can add global styles to this file, and also import other style files */
-@import '_variables';
-
+@import 'variables';
+a {
+  &:hover, &:focus {
+    text-decoration: none;
+  }
+}
 html,body, p {
 	color: $main-text-color;
 }

@@ -1,0 +1,12 @@
+<section id="rentalListing">
+<div class='col-md-3 col-xs-6' *ngIf="currentRentalItem">
+	<div class="card bwm-card">
+	  <img class="card-img-top" src={{currentRentalItem.image}} alt="">
+	  <div class="card-block">
+	    <h6 class="card-subtitle">{{currentRentalItem.category}} &#183; {{currentRentalItem.street}} {{currentRentalItem.city}}</h6>
+	    <h4 class="card-title">{{currentRentalItem.title}}</h4>
+	    <p class="card-text">{{currentRentalItem.dailyRate}} per Night &#183; Free Cancellation</p>
+	  </div>
+	</div>
+</div>
+</section>
