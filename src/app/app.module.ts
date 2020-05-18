@@ -9,15 +9,8 @@ import { RentalComponent } from './rental/rental.component';
 
 
 @NgModule({
-  declarations: [
-    AppComponent,
-    HeaderComponent
-  ],
-  imports: [
-    BrowserModule,
-    AppRoutingModule,
-    RentalModule
-  ],
+  declarations: [AppComponent, HeaderComponent],
+  imports: [BrowserModule, AppRoutingModule, RentalModule],
   providers: [],
   bootstrap: [AppComponent]
 })
