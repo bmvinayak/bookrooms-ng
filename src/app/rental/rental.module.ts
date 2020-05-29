@@ -3,6 +3,7 @@ import { CommonModule} from '@angular/common';
 import { AppRoutingModule } from '../app-routing.module';
 import { HttpClientModule} from '@angular/common/http';
 import { NgPipesModule} from 'ngx-pipes';
+import { MapModule } from '../common/map/map.module';
 
 import { RentalComponent } from './rental.component';
 import { RentalListComponent } from './rental-list/rental-list.component';
@@ -27,7 +28,8 @@ import {UppercasePipe} from '../common/pipes/uppercase.pipes';
 		CommonModule, 
 		AppRoutingModule,
 		HttpClientModule,
-		NgPipesModule
+		NgPipesModule,
+		MapModule
 	],
 	providers: [RentalService]
 })
