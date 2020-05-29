@@ -5,7 +5,7 @@ import { RentalItem} from '../shared/rental.model';
 
 
 @Component({
-  selector: 'app-rental-detail',
+  selector: 'bwm-rental-detail',
   templateUrl: './rental-detail.component.html',
   styleUrls: ['./rental-detail.component.scss']
 })
