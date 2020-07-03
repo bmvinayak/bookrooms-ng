@@ -47,4 +47,5 @@ Thumbs.db
 
 /server/config/dev.js
 /server/.env
-
+.vscode/
+bwm.code-workspace

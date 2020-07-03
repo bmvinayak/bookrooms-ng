@@ -1,9 +1,10 @@
 const RentalItemModel = require('./model/rentalItems');
+const UserModel = require('./model/user');
 
 class GenerateDb{
 
 	constructor() {
-		this.rentalItemsData = [{
+		this.rentalItems = [{
           title: "Nice view on ocean",
           city: "San Francisco",
           street: "Main street",
@@ -36,25 +37,36 @@ class GenerateDb{
           description: "Very nice apartment in center of the city.",
           dailyRate: 23
 		  }
-		];
+    ];
+    this.users =[{
+      username: "Test User",
+      email: "test@gmail.com",
+      password: "testtest"
+    }]
 	}
 
 	async cleanDb() {
-		await RentalItemModel.deleteMany({});
+    await RentalItemModel.deleteMany({});
+    await UserModel.deleteMany({});
 	}
 
-	pushRentalItemsToDb() {
-		this.rentalItemsData.forEach((rentalItemData) => { 
-			const newRentalItemDocument = new RentalItemModel(rentalItemData);
-			newRentalItemDocument.save();
-		})
-		
+	pushDataToDb() {
+    const newUserDocument = new UserModel(this.users[0]);
+
+    this.rentalItems.forEach((rentalItem) => { 
+      const newRentalItemDocument = new RentalItemModel(rentalItem);
+      newRentalItemDocument.user = newUserDocument;
+      newRentalItemDocument.save();
+
+      newUserDocument.rentals.push(newRentalItemDocument);
+    })
+    newUserDocument.save();		
 	}
 
 
-	seedDb() {
-		this.cleanDb();
-		this.pushRentalItemsToDb();
+	async seedDb() {
+		await this.cleanDb();
+		this.pushDataToDb();
 	}
 }
 
