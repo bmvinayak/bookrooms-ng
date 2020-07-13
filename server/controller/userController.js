@@ -5,7 +5,7 @@ const dotenv = require("dotenv");
 
 dotenv.config();
 
-exports.loginAuthenticate = function(req, res) {
+exports.login = function(req, res) {
     const email = req.body.email;
     const password = req.body.password;
     if (!email || !password) {
@@ -13,7 +13,7 @@ exports.loginAuthenticate = function(req, res) {
     }
     UserModel.findOne({email:email}, function(err,validUser){
         if (err) {
-            return res.status(422).send({error: mongooseHelper.normalizeErrors(err.errors)});
+            return res.status(422).send({errors: mongooseHelper.normalizeErrors(err.errors)});
         }
         if (!validUser) {
             return res.status(422).send({errors: [{title: 'Invalid User', detail: 'User doesnt exist'}]});
@@ -49,7 +49,7 @@ exports.register = function(req, res) {
     }
     UserModel.findOne({email:email}, function(err,emailAlreadyRegistered){
         if (err) {
-            return res.status(422).send({error: mongooseHelper.normalizeErrors(err.errors)});
+            return res.status(422).send({errors: mongooseHelper.normalizeErrors(err.errors)});
         }
         if (emailAlreadyRegistered) {
             return res.status(422).send({errors: [{title: 'Email Registered', detail: 'Email already registered'}]});
@@ -61,13 +61,12 @@ exports.register = function(req, res) {
         });
         user.save(function (err) {
             if (err) {
-                return res.status(422).send({error: mongooseHelper.normalizeErrors(err.errors)});
+                return res.status(422).send({errors: mongooseHelper.normalizeErrors(err.errors)});
             } 
             return res.json({'registered': true});
             
         })     
     })
-    //res.json({username: username, email: email});
 
 }
 
@@ -79,7 +78,7 @@ exports.tokenAuthenticate = function(req,res,next) {
         if (authUser) {
             UserModel.findById(authUser.userID, function(err,validUser){
                 if (err) {
-                    return res.status(422).send({error: mongooseHelper.normalizeErrors(err.errors)});
+                    return res.status(422).send({errors: mongooseHelper.normalizeErrors(err.errors)});
                 }
                 if (validUser) {
                     res.locals.user = validUser;

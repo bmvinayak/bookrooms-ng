@@ -11,7 +11,7 @@ import { CamelizePipe } from 'ngx-pipes';
   declarations: [MapComponent] ,
   exports: [MapComponent],
   imports: [AgmCoreModule.forRoot({
-    apiKey: 'YOUR_API_KEY'
+    apiKey: 'YOUR_API_KEY_HERE'
   }), CommonModule] ,
   providers: [MapService, CamelizePipe]
 })
