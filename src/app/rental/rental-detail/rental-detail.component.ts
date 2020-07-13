@@ -4,6 +4,7 @@ import { RentalService } from '../shared/rental.service';
 import { RentalItem} from '../shared/rental.model';
 
 
+
 @Component({
   selector: 'bwm-rental-detail',
   templateUrl: './rental-detail.component.html',
@@ -12,17 +13,18 @@ import { RentalItem} from '../shared/rental.model';
 export class RentalDetailComponent implements OnInit {
 
   currentRentalItem: RentalItem;
-
+  errors: any[] = [];
   constructor(private currentRoute: ActivatedRoute,
   			  private rentalService: RentalService) { 
   }
 
   ngOnInit() {
+
   	this.currentRoute.params.subscribe(
   		(params) => {
   			this.getRentalById(params['rentalId']);
-  		}
-  	);
+			}
+	);
   }
 
   getRentalById(rentalId: string) {

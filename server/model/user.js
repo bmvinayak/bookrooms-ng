@@ -43,13 +43,14 @@ userSchema.methods.isValidPassword = function(requestedPassword) {
 }
 
 userSchema.pre('save', function(next){
-    const user = this;    
+    const user = this;   
     bcrypt.genSalt(10, function(err, salt) {
         bcrypt.hash(user.password, salt, function(err, hash) {
-            user.password = hash;
+        user.password = hash;
+        next();
         });    
     });
-    next(); 
+    
 })
 module.exports = myMongoose.model('User', userSchema);
 

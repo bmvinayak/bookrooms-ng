@@ -1,4 +1,7 @@
 import { Component } from '@angular/core';
+import { AuthService } from '../../auth/shared/auth.service';
+import { Router} from '@angular/router';
+
 
 @Component({
   selector: 'bwm-header',
@@ -7,6 +10,18 @@ import { Component } from '@angular/core';
 
 })
 export class HeaderComponent {
-  componentTitle = 'I am from header.component.ts';
   
+  constructor(private auth: AuthService,
+              private router: Router) {}
+
+  isAuthenticated(): Boolean {
+      return this.auth.isAuthenticated();
+  }
+
+  logout() {
+    this.auth.logout();
+    this.router.navigate(['/login']) 
+  }
+  
+
 }

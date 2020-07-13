@@ -14,10 +14,9 @@ rentalRouter.get('', function(req, res){
 	});
 });
 
-rentalRouter.get('/:id', function(req, res){
+rentalRouter.get('/:id', UserCtrl.tokenAuthenticate, function(req, res){
 	
 	const rentalId = req.params.id;
-	console.log(req.params);
 	RentalItemModel.findById(rentalId, function(err, foundRentalItem) {
 		if (err) {
 			// Error in querying rentals
