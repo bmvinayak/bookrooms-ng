@@ -39,8 +39,12 @@ class GenerateDb{
 		  }
     ];
     this.users =[{
-      username: "Test User",
-      email: "test@gmail.com",
+      username: "Test User1",
+      email: "test1@gmail.com",
+      password: "testtest"
+    }, {
+      username: "Test User2",
+      email: "test2@gmail.com",
       password: "testtest"
     }]
 	}
@@ -51,16 +55,18 @@ class GenerateDb{
 	}
 
 	pushDataToDb() {
-    const newUserDocument = new UserModel(this.users[0]);
+    const newUserDocument1 = new UserModel(this.users[0]);
+    const newUserDocument2 = new UserModel(this.users[1]);
 
     this.rentalItems.forEach((rentalItem) => { 
       const newRentalItemDocument = new RentalItemModel(rentalItem);
-      newRentalItemDocument.user = newUserDocument;
+      newRentalItemDocument.user = newUserDocument1;
       newRentalItemDocument.save();
 
-      newUserDocument.rentals.push(newRentalItemDocument);
+      newUserDocument1.rentals.push(newRentalItemDocument);
     })
-    newUserDocument.save();		
+    newUserDocument1.save();		
+    newUserDocument2.save();
 	}
 
 

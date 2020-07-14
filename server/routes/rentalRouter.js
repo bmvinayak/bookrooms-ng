@@ -9,7 +9,9 @@ rentalRouter.get('/secret', UserCtrl.tokenAuthenticate,function(req,res){
 });
 
 rentalRouter.get('', function(req, res){
-	RentalItemModel.find({}, function(err, foundRentalItems) {
+	RentalItemModel.find({})
+				   .select('-bookings')
+				   .exec(function(err, foundRentalItems) {
 		res.json(foundRentalItems);
 	});
 });
@@ -17,7 +19,10 @@ rentalRouter.get('', function(req, res){
 rentalRouter.get('/:id', UserCtrl.tokenAuthenticate, function(req, res){
 	
 	const rentalId = req.params.id;
-	RentalItemModel.findById(rentalId, function(err, foundRentalItem) {
+	RentalItemModel.findById(rentalId)
+				   .populate('user', 'username -_id')
+				   .populate('bookings', 'startAt endAt -_id')
+				   .exec(function(err, foundRentalItem) {
 		if (err) {
 			// Error in querying rentals
 			res.status(422).send({errors: [{title: 'Rental Errors', detail: 'Error in finding Rental Item'}]});
@@ -30,7 +35,7 @@ rentalRouter.get('/:id', UserCtrl.tokenAuthenticate, function(req, res){
 				res.json(foundRentalItem);
 			}
 		}
-	});
+	})
 });
 
 module.exports = rentalRouter;

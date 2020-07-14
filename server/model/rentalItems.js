@@ -1,4 +1,4 @@
-const myMongoose = require('mongoose').set('debug', true);
+const myMongoose = require('mongoose');
 const schema = myMongoose.Schema;
 
 const rentalItemSchema = new schema ({
@@ -15,7 +15,11 @@ const rentalItemSchema = new schema ({
 	user: {
         type: schema.Types.ObjectId, 
         ref: 'User'
-    }
+	},
+	bookings: [{
+        type: schema.Types.ObjectId, 
+        ref: 'Booking'
+    }]
 });
 
 

@@ -1,5 +1,5 @@
 const bcrypt = require('bcrypt');
-const myMongoose = require('mongoose').set('debug', true);
+const myMongoose = require('mongoose');
 const schema = myMongoose.Schema;
 
 // myMongoose.set('useCreateIndex', true)
@@ -35,6 +35,10 @@ const userSchema = new schema ({
 	rentals: [{
         type: schema.Types.ObjectId, 
         ref: 'RentalItem'
+    }],
+    bookings: [{
+        type: schema.Types.ObjectId, 
+        ref: 'Booking'
     }]
 });
 
@@ -44,6 +48,7 @@ userSchema.methods.isValidPassword = function(requestedPassword) {
 
 userSchema.pre('save', function(next){
     const user = this;   
+    console.log("Inside Pre User Save")
     bcrypt.genSalt(10, function(err, salt) {
         bcrypt.hash(user.password, salt, function(err, hash) {
         user.password = hash;

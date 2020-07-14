@@ -30,6 +30,7 @@ speed-measure-plugin*.json
 !.vscode/launch.json
 !.vscode/extensions.json
 .history/*
+bwm.code-workspace
 
 # misc
 /.sass-cache
@@ -47,5 +48,6 @@ Thumbs.db
 
 /server/config/dev.js
 /server/.env
-.vscode/
-bwm.code-workspace
+/src/app/common/map/map.module.ts
+
+
