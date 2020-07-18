@@ -1,5 +1,6 @@
 const RentalItemModel = require('./model/rentalItems');
 const UserModel = require('./model/user');
+const BookingModel = require('./model/bookings')
 
 class GenerateDb{
 
@@ -13,7 +14,8 @@ class GenerateDb{
           bedrooms: 4,
           shared: true,
           description: "Very nice apartment in center of the city.",
-          dailyRate: 43
+          dailyRate: 43,
+          currency: 'USD'
           },
           {
           title: "Modern apartment in center",
@@ -24,7 +26,8 @@ class GenerateDb{
           bedrooms: 1,
           shared: false,
           description: "Very nice apartment in center of the city.",
-          dailyRate: 11
+          dailyRate: 11,
+          currency: 'USD'
           },
           {
           title: "Old house in nature",
@@ -35,7 +38,8 @@ class GenerateDb{
           bedrooms: 5,
           shared: true,
           description: "Very nice apartment in center of the city.",
-          dailyRate: 23
+          dailyRate: 23,
+          currency: 'USD'
 		  }
     ];
     this.users =[{
@@ -50,6 +54,7 @@ class GenerateDb{
 	}
 
 	async cleanDb() {
+    await BookingModel.deleteMany({});
     await RentalItemModel.deleteMany({});
     await UserModel.deleteMany({});
 	}

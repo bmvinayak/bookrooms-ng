@@ -13,7 +13,8 @@ import { RentalItem} from '../shared/rental.model';
 export class RentalDetailComponent implements OnInit {
 
   currentRentalItem: RentalItem;
-  errors: any[] = [];
+  //errors: any[] = [];
+  errorResponse: any = "";
   constructor(private currentRoute: ActivatedRoute,
   			  private rentalService: RentalService) { 
   }
@@ -30,8 +31,11 @@ export class RentalDetailComponent implements OnInit {
   getRentalById(rentalId: string) {
   	this.rentalService.getRentalById(rentalId).subscribe(
   		(rentalItem: RentalItem)=> {
-  			this.currentRentalItem = rentalItem;	
-  		}
-  	);
+        this.currentRentalItem = rentalItem;	
+      },
+      (errorResponse) => {
+        this.errorResponse = errorResponse;
+        //this.errors = errorResponse.error.errors;
+      });
   }
 }
