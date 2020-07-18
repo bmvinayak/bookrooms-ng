@@ -29,9 +29,10 @@ rentalRouter.get('/:id', UserCtrl.tokenAuthenticate, function(req, res){
 		} else {
 			//Did not find the Rental with the requested rentalId
 			if (foundRentalItem == null) {
-				res.json({message: [{title: 'Rental Data', detail: 'Rental Item not available'}]});	
+				res.status(410).send({ errors: [{title: 'Rental Not Found', detail: 'Rental Item not available'}]});	
 			} else
 			{
+				debugger;
 				res.json(foundRentalItem);
 			}
 		}

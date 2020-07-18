@@ -52,7 +52,7 @@ exports.register = function(req, res) {
             return res.status(422).send({errors: mongooseHelper.normalizeErrors(err.errors)});
         }
         if (emailAlreadyRegistered) {
-            return res.status(422).send({errors: [{title: 'Email Registered', detail: 'Email already registered'}]});
+            return res.status(422).send({errors: [{title: 'Email already Registered', detail: 'Email already registered. Login using this email or register with some other email'}]});
         } 
         const user = new UserModel({
             username: username,

@@ -5,7 +5,10 @@
         <img src="{{currentRentalItem.image}}" alt="">
       </div>
       <div class="col-md-6">
-        <bwm-map [location] = "currentRentalItem.city + ', ' + currentRentalItem.street"></bwm-map>
+        <!--
+          <bwm-map [location] = "currentRentalItem.city + ', ' + currentRentalItem.street"></bwm-map>
+        -->
+        <p> Place holder for the Map</p>
       </div>
     </div>
   </div>
@@ -44,8 +47,13 @@
         </div>
       </div>
       <div class="col-md-4"> 
-        <bwm-rental-detail-booking [PerDayRate]="currentRentalItem.dailyRate"></bwm-rental-detail-booking>
+        <bwm-rental-detail-booking 
+        [Rental]="currentRentalItem"></bwm-rental-detail-booking>
       </div>
     </div>
   </div>
+</section>
+<section id="DidNotFindRental" *ngIf="errorResponse.status==410">
+  <p class="rental-description">Could not find Rental you are looking for</p>
+  <a href="/">Go to list of Rentals</a>   
 </section>

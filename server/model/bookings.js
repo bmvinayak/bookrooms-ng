@@ -6,7 +6,9 @@ const bookingsSchema = new schema ({
 	endAt: { type: Date, required: [true, 'End Date is required']},
 	dailyRate: Number, 
     days: Number,
-	noOfGuests:Number, 
+    noOfGuests:Number, 
+    totalAmount: Number,
+    currency: String,
 	createdAt: {type: Date, default: Date.now},
 	user: {
         type: schema.Types.ObjectId, 

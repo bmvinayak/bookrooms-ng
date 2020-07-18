@@ -11,12 +11,15 @@ exports.createBooking = function(req, res) {
     const dailyRate=req.body.dailyRate;
     const days=req.body.days;
     const noOfGuests =req.body.noOfGuests; 
-    const rental = req.body.rental;
+    const totalAmount = req.body.totalAmount;
+    const currency=req.body.currency;
+    const rental = req.body.rentalItem;
+ 
     //get access to user stored in local for tokenAuthenticate fuction
     const user = res.locals.user;
 
     // create new booking object
-    const newBooking = new BookingModel({startAt, endAt, dailyRate, days,noOfGuests});
+    const newBooking = new BookingModel({startAt, endAt, dailyRate, days, noOfGuests, totalAmount, currency});
 
     // find the rental record and update it with booking and user details after validating and storing booking record
     RentalItem.findById(rental._id)
@@ -46,7 +49,7 @@ exports.createBooking = function(req, res) {
                     //push new booking into user record and update user 
                     //(Do not use save as pre save function will trigger)
                     User.updateOne({_id: user.id}, {$push: {bookings: newBooking}}, function (){});
-                    return res.json({StartAt: newBooking.startAt, EndAt: newBooking.endAt});
+                    return res.json({startAt: newBooking.startAt, endAt: newBooking.endAt});
                 });                      
             } else {
                 return res.status(422).send({errors: [{title: 'Invalid Booking', detail: 'Choosen dates on this rental is already booked!'}]});
