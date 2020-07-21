@@ -13,7 +13,7 @@ import { RentalItem} from '../shared/rental.model';
 export class RentalDetailComponent implements OnInit {
 
   currentRentalItem: RentalItem;
-  //errors: any[] = [];
+  errors: any[] = [];
   errorResponse: any = "";
   constructor(private currentRoute: ActivatedRoute,
   			  private rentalService: RentalService) { 
@@ -35,7 +35,7 @@ export class RentalDetailComponent implements OnInit {
       },
       (errorResponse) => {
         this.errorResponse = errorResponse;
-        //this.errors = errorResponse.error.errors;
+        this.errors = errorResponse.error.errors;
       });
   }
 }

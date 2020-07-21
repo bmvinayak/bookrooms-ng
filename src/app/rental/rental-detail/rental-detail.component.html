@@ -53,7 +53,11 @@
     </div>
   </div>
 </section>
-<section id="DidNotFindRental" *ngIf="errorResponse.status==410">
-  <p class="rental-description">Could not find Rental you are looking for</p>
+<section id="DidNotFindRental" *ngIf="errors.length>0">
+  <div class="alert alert-danger modal-error">
+    <p *ngFor="let error of errors">
+      {{error.title}} : {{error.detail}}
+    </p>
+  </div>
   <a href="/">Go to list of Rentals</a>   
 </section>
