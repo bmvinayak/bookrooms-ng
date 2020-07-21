@@ -1,56 +1,13 @@
 const RentalItemModel = require('./model/rentalItems');
 const UserModel = require('./model/user');
-const BookingModel = require('./model/bookings')
+const BookingModel = require('./model/bookings');
+const initialData = require('./data.json');
 
 class GenerateDb{
 
 	constructor() {
-		this.rentalItems = [{
-          title: "Nice view on ocean",
-          city: "San Francisco",
-          street: "Main street",
-          category: "condo",
-          image: "https://booksync-jerga-prod.s3.amazonaws.com/uploads/rental/image/5/image.jpeg",
-          bedrooms: 4,
-          shared: true,
-          description: "Very nice apartment in center of the city.",
-          dailyRate: 43,
-          currency: 'USD'
-          },
-          {
-          title: "Modern apartment in center",
-          city: "New York",
-          street: "Time Square",
-          category: "apartment",
-          image: "https://booksync-jerga-prod.s3.amazonaws.com/uploads/rental/image/5/image.jpeg",
-          bedrooms: 1,
-          shared: false,
-          description: "Very nice apartment in center of the city.",
-          dailyRate: 11,
-          currency: 'USD'
-          },
-          {
-          title: "Old house in nature",
-          city: "Spisska Nova Ves",
-          street: "Banicka 1",
-          category: "house",
-          image: "https://booksync-jerga-prod.s3.amazonaws.com/uploads/rental/image/5/image.jpeg",
-          bedrooms: 5,
-          shared: true,
-          description: "Very nice apartment in center of the city.",
-          dailyRate: 23,
-          currency: 'USD'
-		  }
-    ];
-    this.users =[{
-      username: "Test User1",
-      email: "test1@gmail.com",
-      password: "testtest"
-    }, {
-      username: "Test User2",
-      email: "test2@gmail.com",
-      password: "testtest"
-    }]
+		this.rentalItems = initialData.rentals;
+    this.users = initialData.users;
 	}
 
 	async cleanDb() {
