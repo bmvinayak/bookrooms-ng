@@ -3,11 +3,13 @@ import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { ToastrService } from 'ngx-toastr';
 import { DaterangePickerComponent } from 'ng2-daterangepicker';
 import * as moment from 'moment';
-
+import { Router } from '@angular/router';
+ 
 import { Booking } from '../../../booking/shared/booking.model';
 import { HelperService } from '../../../common/service/helper.service';
 import { RentalItem } from '../../shared/rental.model';
 import { BookingService } from '../../../booking/shared/booking.service';
+import { AuthService } from '../../../auth/shared/auth.service';
 
 
 @Component({
@@ -18,7 +20,7 @@ import { BookingService } from '../../../booking/shared/booking.service';
 })
 export class RentalDetailBookingComponent implements OnInit {
   
-  @Input() Rental: RentalItem;
+  @Input() rental: RentalItem;
   @ViewChild(DaterangePickerComponent, {static: false }) private picker: DaterangePickerComponent;
   newBooking: Booking;
   daterange: any = {};
@@ -38,7 +40,9 @@ export class RentalDetailBookingComponent implements OnInit {
   constructor(private helper: HelperService,
               private modalService: NgbModal,
               private bookingService: BookingService,
-              private toastrService: ToastrService) { }
+              private toastrService: ToastrService, 
+              public authService: AuthService, 
+              private router: Router) { }
 
   ngOnInit() {
     this.getBookedDates();
@@ -51,7 +55,7 @@ export class RentalDetailBookingComponent implements OnInit {
   }
 
   private getBookedDates() {
-    const bookings: Booking[] = this.Rental.bookings;
+    const bookings: Booking[] = this.rental.bookings;
     if (bookings && bookings.length>0) {
       bookings.forEach((booking: Booking) => {
         const bookedDates =this.helper.getRangeOfDates(booking.startAt, booking.endAt);
@@ -73,11 +77,11 @@ export class RentalDetailBookingComponent implements OnInit {
 
   openConfirmModal(content){
     this.errors = [];
-    this.newBooking.dailyRate = this.Rental.dailyRate;
-    this.newBooking.currency = this.Rental.currency;
+    this.newBooking.dailyRate = this.rental.dailyRate;
+    this.newBooking.currency = this.rental.currency;
     this.newBooking.totalAmount = this.newBooking.days * this.newBooking.dailyRate;
     // No of Guests in the UI is bound to newBooking.noOfGuests so no need to separate fetch it 
-    this.newBooking.rentalItem = this.Rental;
+    this.newBooking.rentalItem = this.rental;
     this.modelRef = this.modalService.open(content);
   }
 
@@ -102,6 +106,12 @@ export class RentalDetailBookingComponent implements OnInit {
     this.picker.datePicker.element.val(this.newBooking.startAt + ' - ' + this.newBooking.endAt);
     //if start date and end date is same then booking is considered for one day
     this.newBooking.days = value.end.diff(value.start, 'days')+1;
+
+  }
+
+  public redirectToLogin() {
+    this.authService.redirectUrl = `rentals/${this.rental._id}`;
+    this.router.navigate(['/login']);
 
   }
 }
