@@ -5,10 +5,12 @@
         <img src="{{currentRentalItem.image}}" alt="">
       </div>
       <div class="col-md-6">
-        <!--
+
           <bwm-map [location] = "currentRentalItem.city + ', ' + currentRentalItem.street"></bwm-map>
-        -->
-        <p> Place holder for the Map</p>
+
+ <!--       
+   <p> Place holder for the Map</p>
+  -->
       </div>
     </div>
   </div>
@@ -18,6 +20,10 @@
       <div class="col-md-8">
         <div class="rental">
           <h2 class="rental-type {{currentRentalItem.category}}">{{currentRentalItem.shared ? 'Shared' : 'Entire'}} {{currentRentalItem.category}}</h2>
+          <div class="rental-owner">
+              <img src="https://api.adorable.io/avatars/285/abott@adorable.png" alt="">
+              <span> {{currentRentalItem.user.username}}</span>
+          </div>
           <h1 class="rental-title">{{currentRentalItem.title}}</h1>
           <h2 class="rental-city">{{currentRentalItem.city | ucwords}}</h2>
           <div class="rental-room-info">
@@ -48,7 +54,7 @@
       </div>
       <div class="col-md-4"> 
         <bwm-rental-detail-booking 
-        [Rental]="currentRentalItem"></bwm-rental-detail-booking>
+        [rental]="currentRentalItem"></bwm-rental-detail-booking>
       </div>
     </div>
   </div>

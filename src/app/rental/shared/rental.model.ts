@@ -1,6 +1,10 @@
 import { Booking } from '../../booking/shared/booking.model';
 
 export class RentalItem {
+
+    static readonly CATEGORIES = ['house', 'apartment', 'condo'];
+    static readonly CURRENCIES = ['USD', 'EUR', 'INR'];
+
 	_id: string;
 	title: string;
     city: string;

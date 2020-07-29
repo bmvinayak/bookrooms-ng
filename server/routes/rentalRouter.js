@@ -35,7 +35,7 @@ rentalRouter.get('/secret', UserCtrl.tokenAuthenticate,function(req,res){
 	res.json({"secret": true,"user": res.locals.user});
 });
 
-rentalRouter.get('/:id', UserCtrl.tokenAuthenticate, function (req, res) {
+rentalRouter.get('/:id', function (req, res) {
 	const rentalId = req.params.id;
 	RentalItemModel.findById(rentalId)
 		.populate('user', 'username -_id')
@@ -68,7 +68,7 @@ rentalRouter.get('', function (req, res) {
 			}
 			if (cityQueried && filteredRentalItems.length === 0) {
 				//Did not find the Rental with the requested city
-				return res.status(410).send({ errors: [{ title: 'No Rentals Found', detail: `There are no rentals in ${cityQuery}` }] });
+				return res.status(410).send({ errors: [{ title: 'No Rentals Found', detail: `There are no rentals in ${cityQueried}` }] });
 			}
 			return res.json(filteredRentalItems);
 		});
