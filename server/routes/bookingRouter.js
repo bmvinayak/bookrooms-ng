@@ -6,4 +6,6 @@ const UserCtrl = require('../controller/userController');
 
 bookingRouter.post('', UserCtrl.tokenAuthenticate, BookingCtrl.createBooking);
 
+bookingRouter.get('/mybookings', UserCtrl.tokenAuthenticate, BookingCtrl.getUserBookings);
+
 module.exports = bookingRouter;
