@@ -49,4 +49,5 @@ Thumbs.db
 src/app/common/map/map.module.ts
 /server/config/dev.js
 /server/.env
+makefile
 
