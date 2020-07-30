@@ -99,13 +99,19 @@ rentalRouter.delete('/:id', UserCtrl.tokenAuthenticate,function(req, res) {
 			if (err){
 				return res.status(422).send({ errors: mongooseHelper.normalizeErrors(err.errors) });
 			}
+			// Check if the rentalItem was found. if not return error
+			if (!rentalItem) {
+				return res.status(410).send({ errors: [{ title: 'Invalid Rental', detail: 'That rental does not exist' }] });
+			}
 			// Check if the logged-in user is owner of this rental
+			// If not return error stating that you cannot delete rental that you dont own
 			if (rentalItem.user.id !== user.id) {
 				return res.status(410).send({ errors: [{ title: 'Invalid User', detail: 'You cannot delete as you are not owner of this rental' }] });
 			}
 			// Check if there are any bookings against this rental
+			// If yes return error stating that the bookings exist and cannot be deleted however can be de-activated
 			if (rentalItem.bookings.length>0) {
-				return res.status(410).send({ errors: [{ title: 'Bookings Exist', detail: 'You cannot delete this rental as there are bookings already on the rental' }] });
+				return res.status(410).send({ errors: [{ title: 'Bookings Exist', detail: 'You cannot delete this rental as there are bookings already on the rental. You may de-activate if required' }] });
 			} 
 			rentalItem.remove(function(err){
 				if (err){
