@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { RentalService } from '../shared/rental.service';
 import { RentalItem} from '../shared/rental.model';
+import { HttpErrorResponse } from '@angular/common/http';
 
 
 
@@ -33,7 +34,7 @@ export class RentalDetailComponent implements OnInit {
   		(rentalItem: RentalItem)=> {
         this.currentRentalItem = rentalItem;	
       },
-      (errorResponse) => {
+      (errorResponse: HttpErrorResponse) => {
         this.errorResponse = errorResponse;
         this.errors = errorResponse.error.errors;
       });

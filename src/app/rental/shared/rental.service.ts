@@ -9,25 +9,28 @@ export class RentalService{
 	
 	constructor(private http: HttpClient) {}
 
-	public getRentalById(rentalId: string): Observable<any> {
-		
+	public getRentalById(rentalId: string): Observable<any> {		
 		return this.http.get('/api/v1/rentals/' + rentalId);
 	}
 
 	public getRentalByCity(city: string): Observable<any> {
-
 		return this.http.get(`/api/v1/rentals?city=${city}`);
 	}
-	public getRentalItems(): Observable<any> {
-		
-		return this.http.get('/api/v1/rentals');
 
+	public getUserRentalItems(): Observable<any> {
+		return this.http.get('/api/v1/rentals/myrentals');
+	}
+	
+	public getRentalItems(): Observable<any> {		
+		return this.http.get('/api/v1/rentals');
 	}
 
 	public createRentalItem(rental: RentalItem): Observable<any> {
-
 		return this.http.post('/api/v1/rentals', rental);
+	}
 
+	public deleteRentalItem(rentalId: string): Observable<any> {
+		return this.http.delete('/api/v1/rentals/' + rentalId);
 	}
 }
 

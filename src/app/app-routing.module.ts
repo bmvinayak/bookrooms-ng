@@ -8,12 +8,16 @@ import { RentalCreateComponent } from './rental/rental-create/rental-create.comp
 //import { AuthComponent } from './auth/auth.component';
 import { LoginComponent } from './auth/login/login.component';
 import { RegisterComponent } from './auth/register/register.component';
+import { ManageComponent } from './manage/manage.component';
+import { ManageRentalComponent } from './manage/manage-rental/manage-rental.component';
+import { ManageBookingComponent } from './manage/manage-booking/manage-booking.component';
 import { AuthGuard } from './auth/shared/auth.guard';
+
 
 const routes: Routes =[
 	{ path: '', redirectTo: '/rentals', pathMatch: 'full'},
 	{ path: 'rentals', component: RentalComponent,
-	 children:[
+	 	children:[
 		{ path: '', component: RentalListComponent},
 		{ path: 'new', component: RentalCreateComponent, canActivate: [AuthGuard] },
 		{ path: ':city/homes', component: RentalSearchComponent },
@@ -21,7 +25,13 @@ const routes: Routes =[
 		]
 	},
 	{ path: 'login', component: LoginComponent, canActivate: [AuthGuard]},
-   	{ path: 'register', component: RegisterComponent, canActivate: [AuthGuard]}
+	{ path: 'register', component: RegisterComponent, canActivate: [AuthGuard]},
+	{ path: 'manage', component: ManageComponent,
+		children: [
+		{ path: 'rentals', component: ManageRentalComponent, canActivate: [AuthGuard] },
+		{ path: 'bookings', component: ManageBookingComponent, canActivate: [AuthGuard] }
+		]
+	}
 ];
 
 @NgModule({

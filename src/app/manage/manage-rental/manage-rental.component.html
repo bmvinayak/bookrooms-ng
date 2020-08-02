@@ -1,0 +1,44 @@
+<section id="userRentals">
+    <h1 class="page-title">My Rentals</h1>
+    <div class="row">
+        <ng-container *ngIf="myRentalItems && myRentalItems.length>0">
+            <!-- Check for rentals length -->
+            <div *ngFor="let myRentalItem of myRentalItems; let i = index" class="col-md-4">
+                <!-- Iterate Rentals -->
+                <div class="card text-center">
+                    <div class="card-block">
+                        <h4 class="card-title">{{myRentalItem.title}} in {{myRentalItem.city | ucwords}}</h4> <!-- Rental Title - Rental City -->
+                        <a class="btn btn-ghost mr-2" style="float: left;" routerLink="/rentals/{{myRentalItem._id}}">Go to Rental</a>
+                        <span *ngIf="myRentalItem.bookings && myRentalItem.bookings.length>0">
+                            <!-- Check for rental bookings length -->
+                        <bwm-manage-rental-booking [myBookings]="myRentalItem.bookings"></bwm-manage-rental-booking>
+                        </span>
+                    </div>
+                    <div class="card-footer text-muted">
+                        <p>Created at {{myRentalItem.createdAt | formatDate}}</p> <!-- Created At -->
+                        <button (click)="rentalDeleteIndex=i; errors=[]"
+                                *ngIf="(!myRentalItem.bookings || myRentalItem.bookings.length===0) && rentalDeleteIndex!==i"
+                                type="button" 
+                                class="btn btn-bwm btn-delete">Delete</button>
+                        <!-- Delete Rental Button -->
+                        <div *ngIf="rentalDeleteIndex === i">
+                            <p class="confirm-warning">Are you sure you want to delete? </p>
+                            <button (click)="deleteRentalItem(myRentalItem._id)"
+                                    class="btn btn-success">Yes</button>
+                            <button (click)="rentalDeleteIndex=undefined" 
+                                    class="btn btn-danger">No</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </ng-container>
+        <div *ngIf="myRentalItems && myRentalItems.length===0"class="col-md-8">
+            <!-- Check if rentals length === 0 -->
+            <div class="alert alert-warning">
+                You dont have any rentals currenty created. If you want advertised your property
+                please follow this link.
+                <a class="btn btn-bwm" routerLink="/rentals/new">Register Rental</a> <!-- Link to rentals/new -->
+            </div>
+        </div>
+    </div>
+</section>
