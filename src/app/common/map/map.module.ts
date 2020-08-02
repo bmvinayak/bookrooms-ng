@@ -1,6 +1,7 @@
 import { NgModule } from '@angular/core';
 import { AgmCoreModule } from '@agm/core';
 import { CommonModule } from '@angular/common';
+import { AppRoutingModule } from '../../app-routing.module';
 
 import { MapComponent} from './map.component';
 
@@ -11,8 +12,11 @@ import { CamelizePipe } from 'ngx-pipes';
   declarations: [MapComponent] ,
   exports: [MapComponent],
   imports: [AgmCoreModule.forRoot({
-    apiKey: 'YOUR_API_KEY'
-  }), CommonModule] ,
+              apiKey: 'AIzaSyCgaFVLFROqKnBfowfcU9ZiHuBst9C1noA'
+            }), 
+            AppRoutingModule,
+            CommonModule
+          ] ,
   providers: [MapService, CamelizePipe]
 })
 export class MapModule { }

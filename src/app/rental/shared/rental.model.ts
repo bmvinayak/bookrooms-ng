@@ -17,5 +17,6 @@ export class RentalItem {
     currency: string;
     shared: boolean;
     createdAt: string;
+    user: any;
     bookings: Booking[];
 }

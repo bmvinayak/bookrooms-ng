@@ -28,6 +28,7 @@ export class MapComponent {
       //error function
       () => {
         this.isPositionError = true;
+        this.changeDetectorRef.detectChanges();
       }
     )
   }
