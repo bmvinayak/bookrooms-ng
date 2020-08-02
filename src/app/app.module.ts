@@ -5,6 +5,7 @@ import { AppRoutingModule } from './app-routing.module';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { ToastrModule } from 'ngx-toastr';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { ManageModule } from './manage/manage.module';
 
 
 import { RentalModule } from './rental/rental.module';
@@ -23,6 +24,7 @@ import { AuthModule } from './auth/auth.module';
     AppRoutingModule, 
     RentalModule, 
     AuthModule,
+    ManageModule,
     NgbModule,
     BrowserAnimationsModule,
     ToastrModule.forRoot()

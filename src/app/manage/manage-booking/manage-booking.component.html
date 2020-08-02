@@ -1,0 +1,41 @@
+<section id="userBookings">
+    <h1 class="page-title">My Bookings</h1>
+    <div class="row">
+        <ng-container *ngIf="myBookings && myBookings.length>0">
+            <!-- Check for bookings length -->
+            <div *ngFor="let myBooking of myBookings" class="col-md-4">
+                <!-- Iterate bookings here -->
+                <div class="card text-center">
+                    <div class="card-header">
+                        {{myBooking.rentalItem ? myBooking.rentalItem.category: 'Deleted Rental'}}
+                        <!-- rental category -->
+                    </div>
+                    <div class="card-block">
+                        <ng-container *ngIf="myBooking.rentalItem">
+                            <h4 class="card-title">{{myBooking.rentalItem.title}} in {{myBooking.rentalItem.city | ucwords }}</h4> <!-- rental title and city -->
+                            <p class="card-text booking-desc">{{myBooking.rentalItem.description}}</p>
+                            <!-- rental description -->
+                        </ng-container>
+                        <p class="card-text booking-days"> {{myBooking.startAt | formatDate}} - {{myBooking.endAt | formatDate}} | {{myBooking.days}} days</p>
+                        <!-- booking startAt - endAt | days -->
+                        <p class="card-text">
+                            <span>Price: </span> 
+                            <span class="booking-price-value">
+                                {{myBooking.currency}} {{myBooking.dailyRate}}
+                            </span></p> <!-- booking price -->
+                        <a *ngIf="myBooking.rentalItem" class="btn btn-bwm" routerLink="/rentals/{{myBooking.rentalItem._id}}">Go to Rental</a> <!-- link to rental detail -->
+                    </div>
+                    <div class="card-footer text-muted">
+                        Created {{myBooking.createdAt | formatDate}}
+                        <!-- booking createdAt -->
+                    </div>
+                </div>
+            </div>
+        </ng-container>
+        <div *ngIf="myBookings && myBookings.length==0" class="alert alert-warning">
+            <!-- check if booking length == 0 -->
+            You have no bookings created go to rentals section and book your place today.
+            <a class="btn btn-bwm" routerLink="#">Book Rentals</a> <!-- link to /rentals -->
+        </div>
+    </div>
+</section>

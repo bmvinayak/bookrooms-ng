@@ -1,5 +1,5 @@
 /* You can add global styles to this file, and also import other style files */
-@import '_variables';
+@import 'variables';
 a {
   &:hover, &:focus {
     text-decoration: none;
@@ -31,12 +31,26 @@ margin-bottom: 20px;
 	cursor: pointer;
 }
 
-.btn.btn-bwm {
-	background-color: $main-color;
-	border-color: $main-color;
+.btn-ghost {
+background-color: transparent !important;
+color: $main-color !important;
+border: 1px solid $main-color !important;
+font-size: 12px !important;
+
+	&:hover, &:focus {
+		background-color: transparent !important;
+		color: $main-color !important;
+		border: 1px solid $main-color !important;
+	}
+}
+
+.btn-bwm {
+	background-color: $main-color !important;
+	border-color: $main-color !important;
 	color: white;
 	padding: 15px 30px;
 	font-size: 15px;
+
 	
 	&:hover, &:focus, &:active {
 		background-color: $main-color !important;

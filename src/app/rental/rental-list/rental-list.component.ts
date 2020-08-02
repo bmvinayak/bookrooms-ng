@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { RentalService } from '../shared/rental.service';
 import {RentalItem} from '../shared/rental.model';
+import { HttpErrorResponse } from '@angular/common/http';
 
 @Component({
   selector: 'bwm-rental-list',
@@ -18,7 +19,7 @@ export class RentalListComponent implements OnInit {
    		(rentalItemsFromService: RentalItem[]) =>{
    			this.rentalItems = rentalItemsFromService;
    		},
-   		(err) =>{
+   		(errorResponse: HttpErrorResponse) =>{
    		},
    		() =>{
    		})

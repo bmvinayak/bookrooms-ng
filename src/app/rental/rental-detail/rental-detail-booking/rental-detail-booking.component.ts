@@ -10,6 +10,7 @@ import { HelperService } from '../../../common/service/helper.service';
 import { RentalItem } from '../../shared/rental.model';
 import { BookingService } from '../../../booking/shared/booking.service';
 import { AuthService } from '../../../auth/shared/auth.service';
+import { HttpErrorResponse } from '@angular/common/http';
 
 
 @Component({
@@ -95,9 +96,8 @@ export class RentalDetailBookingComponent implements OnInit {
         this.resetDatePicker();
         this.toastrService.success('Your booking was successfully created. Check your booking in Manage Section.', 'Success');
       },
-      (errorResponse) => {
+      (errorResponse: HttpErrorResponse) => {
         this.errors = errorResponse.error.errors;
-        console.log("Status:" + errorResponse.status + " Errors:" + this.errors[0].title);
       })
   }
   public selectedDate(value: any, datepicker?: any) {
