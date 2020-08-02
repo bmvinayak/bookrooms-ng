@@ -1,6 +1,8 @@
 const UserModel = require('../model/user');
 const mongooseHelper = require('../helpers/mongooseHelper');
 const jwt = require('jsonwebtoken');
+//const config = require('../config');
+
 const dotenv = require("dotenv");
 
 dotenv.config();
@@ -98,7 +100,7 @@ exports.tokenAuthenticate = function(req,res,next) {
 
 function parseToken(token) {
     try {
-        return jwt.verify(token.split(' ')[1],process.env.SECRET)   
+        return jwt.verify(token.split(' ')[1], process.env.SECRET)   
     } catch (e) {
         return null;
     };
