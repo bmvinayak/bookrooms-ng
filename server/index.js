@@ -40,6 +40,7 @@ if (process.env.NODE_ENV === 'production') {
 
 
 app.listen(PORT, function() {
-	console.log('I am listening');
+	console.log('I am listening at Port :'+PORT);
+	console.log('And the environment is :' + process.env.NODE_ENV);
 });
 

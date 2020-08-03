@@ -25,7 +25,8 @@
               <input type="email"
                      class="form-control"
                      id="email"
-                     formControlName="email">
+                     formControlName="email"
+                     autocomplete="username">
               <div *ngIf="isValidInput('email')"
                     class="alert alert-danger">
                 <div *ngIf="isRequired('email')">
@@ -41,7 +42,8 @@
               <input type="password"
                      class="form-control"
                      id="password"
-                     formControlName="password">
+                     formControlName="password"
+                     autocomplete="current-password">
             </div>
             <button [disabled]="!loginForm.valid" type="submit" class="btn btn-bwm">Submit</button>
           </form>
