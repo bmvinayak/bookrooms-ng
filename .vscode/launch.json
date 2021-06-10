@@ -12,7 +12,7 @@
             "envFile": "${workspaceFolder}/server/.env",
             "request": "launch",
             "restart": true,
-            "runtimeExecutable": "nodemon",
+            "runtimeExecutable": "/Users/vinayakmungurwadi/.nvm/versions/node/v12.18.1/bin/nodemon",
             "skipFiles": [
                 "<node_internals>/**"
             ],

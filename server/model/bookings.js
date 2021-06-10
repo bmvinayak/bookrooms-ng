@@ -4,19 +4,22 @@ const schema = myMongoose.Schema;
 const bookingsSchema = new schema ({
 	startAt: { type: Date, required: [true, 'Start Date is required']},
 	endAt: { type: Date, required: [true, 'End Date is required']},
-	dailyRate: Number, 
-    days: Number,
-    noOfGuests:Number, 
-    totalAmount: Number,
-    currency: String,
+    cancelByDate: { type: Date, required: [true, 'Cancel By Date is required'] },
+    dailyRate: { type: Number, required: [true, 'Daily rate is required'] },
+    days: { type: Number, required: [true, 'No of days is required'] },
+    noOfGuests: { type: Number, required: [true, 'No of guests is required'] },
+    totalAmount: { type: Number, required: true},
+    currency: { type: String, required: [true, 'Currency is required']},
 	createdAt: {type: Date, default: Date.now},
 	user: {
         type: schema.Types.ObjectId, 
-        ref: 'User'
+        ref: 'User',
+        required: true
     },
     rentalItem: {
         type: schema.Types.ObjectId, 
-        ref: 'RentalItem'
+        ref: 'RentalItem', 
+        required: true
     }
 });
 

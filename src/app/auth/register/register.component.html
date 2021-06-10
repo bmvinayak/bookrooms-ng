@@ -8,7 +8,9 @@
               {{error.title}} : {{error.detail}}
             </p>
           </div>
-          <form #registerForm="ngForm">
+          <form 
+            #registerForm="ngForm"
+            [sameAs]="['password', 'passwordConfirmation']">
             <div class="form-group">
               <label for="username">Username</label>
               <input [(ngModel)] = "registrationForm.username" 
@@ -53,12 +55,16 @@
                       class="form-control"
                       id="password"
                       required
+                      minlength="6"
                       autocomplete="new-password">
               <div *ngIf="password.invalid && (password.dirty || password.touched)"
                 class="alert alert-danger">
                 <div *ngIf="password.errors.required">
                     Password is required.
-                </div>  
+                </div> 
+                <div *ngIf="password.errors.minlength">
+                  Password must be at least 6 characters long!
+                </div>
               </div>
             </div>
   
@@ -71,12 +77,19 @@
                       class="form-control"
                       id="passwordConfirmation"
                       required
+                      minlength="6"
                       autocomplete="new-password">
               <div *ngIf="passwordConfirmation.invalid && (passwordConfirmation.dirty || passwordConfirmation.touched)"
                 class="alert alert-danger">
                 <div *ngIf="passwordConfirmation.errors.required">
                   Password Confirmation is required.
-                </div>  
+                </div>
+                <div *ngIf="passwordConfirmation.errors.minlength">
+                  Password Confirmation must be at least 6 characters long!
+                </div>
+              </div>
+              <div *ngIf="registerForm.errors?.sameAs && !passwordConfirmation.pristine" class="alert alert-danger">
+                Password confirmation must be the same as password!
               </div>
             </div>
             <button [disabled]="!registerForm.form.valid" (click)="register()" type="submit" class="btn btn-bwm">Submit</button>

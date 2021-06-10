@@ -57,19 +57,21 @@
 
                         <div class="form-group col-md-3">
                             <label for="bedrooms">Bedrooms</label>
-                            <input [(ngModel)]="newRental.bedrooms" #bedrooms="ngModel" name="bedrooms" type="number" class="form-control"
-                                id="bedrooms" required>
+                            <input [(ngModel)]="newRental.bedrooms" 
+                                    #bedrooms="ngModel" 
+                                    name="bedrooms" 
+                                    type="number" 
+                                    class="form-control"
+                                    id="bedrooms" 
+                                    required>
                         </div>
                     </div>
 
                     <div class="form-group">
-                        <label for="image">Image</label>
-                        <input (change)="handleImageChange()" 
-                                type="file" 
-                                name="image" 
-                                class="form-control-file" 
-                                id="image" 
-                                placeholder="Upload file...">
+                        <label for="image">Photo of your Property</label>
+                        <bwm-image-upload 
+                            (imageUploadEmitter)="attachImageToRentalItem($event)">
+                        </bwm-image-upload>
                     </div>
 
                     <div class="form-group">
@@ -82,30 +84,36 @@
                                 id="description"
                                 required></textarea>
                     </div>
-
-                    <div class="form-group">
-                        <label for="dailyRate">Daily Rate</label>
-    <!--                            <div class="input-group-prepend">
-                                        <div class="input-group-text">$</div>
-                                    </div> -->
-                        <div class="input-group">
-                            <div class="input-group-prepend">
-                                <select [(ngModel)] = "newRental.currency" 
-                                    #currency="ngModel"
-                                    name="currency"
+                    <div class="form-row">
+                        <div class="form-group col-md-6">
+                            <label for="dailyRate">Daily Rate</label>
+                            <div class="input-group">
+                                <div class="input-group-prepend">
+                                    <select [(ngModel)] = "newRental.currency" 
+                                        #currency="ngModel"
+                                        name="currency"
+                                        class="form-control" 
+                                        id="currency"
+                                        required>
+                                        <option *ngFor="let currency of rentalcurrencies"> {{currency}} </option>
+                                    </select>
+                                </div>
+                                <input [(ngModel)] = "newRental.dailyRate" 
+                                    #dailyRate="ngModel"
+                                    name="dailyRate"
+                                    type="number" 
                                     class="form-control" 
-                                    id="currency"
+                                    id="dailyRate"
                                     required>
-                                    <option *ngFor="let currency of rentalcurrencies"> {{currency}} </option>
-                                </select>
                             </div>
-                            <input [(ngModel)] = "newRental.dailyRate" 
-                                #dailyRate="ngModel"
-                                name="dailyRate"
+                        </div>
+                        <div class="form-group col-md-6">
+                            <label for="cancelBeforeDays">Cancel Before Days</label>
+                            <input [(ngModel)]="newRental.cancelBeforeDays" 
+                                #cancelBeforeDays="ngModel" 
+                                name="cancelBeforeDays" 
                                 type="number" 
-                                name="dailyRate" 
-                                class="form-control" 
-                                id="dailyRate"
+                                class="form-control" id="cancelBeforeDays" 
                                 required>
                         </div>
                     </div>
@@ -119,10 +127,10 @@
                         <label class="form-check-label" 
                                 for="shared">Shared</label>
                     </div>
-                    <button (click)="createRental()" 
-                            [disabled]="!createRentalForm.form.valid"
+                    <button (click)="createRental(createRentalForm)" 
+                            [disabled]="!createRentalForm.form.valid || !hasImageId"
                             type="submit" 
-                            class="btn btn-bwm">Submit</button>
+                            class="btn btn-bwm">Create</button>
                 </form>
             </div>
             <div class="col-md-6 ml-auto">

@@ -11,14 +11,24 @@ exports.login = function(req, res) {
     const email = req.body.email;
     const password = req.body.password;
     if (!email || !password) {
-        return res.status(422).send({errors: [{title: 'Missing data', detail: 'Please specify email and password'}]});
+        return res
+            .sendApiError(
+                {
+                    title: 'Missing Data',
+                    detail: 'Email or Password is missing!'
+                });
     }
     UserModel.findOne({email:email}, function(err,validUser){
         if (err) {
-            return res.status(422).send({errors: mongooseHelper.normalizeErrors(err.errors)});
+            return res.mongoError(error);
         }
         if (!validUser) {
-            return res.status(422).send({errors: [{title: 'Invalid User', detail: 'User doesnt exist'}]});
+            return res
+                .sendApiError(
+                    {
+                        title: 'Invalid User',
+                        detail: "User with given Email doesn't exists"
+                    });
         } 
         if (validUser.isValidPassword(password)) {
             // return JWT Token 
@@ -26,9 +36,14 @@ exports.login = function(req, res) {
                 userID: validUser.id,
                 username: validUser.username
             }, process.env.SECRET, {expiresIn: '1h'});
-            return res.json(token);
+            return res.json({"access_token": token});
         } else {
-            return res.status(422).send({errors: [{title: 'Wrong Credentials', detail: 'Wrong email id or password'}]});
+            return res
+                .sendApiError(
+                    {
+                        title: 'Wrong Credentials',
+                        detail: "Wrong Email or Password"
+                    })
         }
 
         
@@ -44,17 +59,32 @@ exports.register = function(req, res) {
     //const {username, email, password, passwordConfirmation} = req.body;
 
     if (!email || !password) {
-        return res.status(422).send({errors: [{title: 'Missing data', detail: 'Please specify email and password'}]});
+        return res
+            .sendApiError(
+                {
+                    title: 'Missing Data',
+                    detail: 'Email or Password is missing!'
+                });
     }
     if (password !== passwordConfirmation) {
-        return res.status(422).send({errors: [{title: 'Password Confirmation Mismatch', detail: 'Confirm Password does not match Password'}]});
+        return res
+            .sendApiError(
+                {
+                    title: 'Password Confirmation Mismatch',
+                    detail: 'Confirm Password does not match Password!'
+                });
     }
     UserModel.findOne({email:email}, function(err,emailAlreadyRegistered){
         if (err) {
-            return res.status(422).send({errors: mongooseHelper.normalizeErrors(err.errors)});
+            return res.mongoError(error)
         }
         if (emailAlreadyRegistered) {
-            return res.status(422).send({errors: [{title: 'Email already Registered', detail: 'Email already registered. Login using this email or register with some other email'}]});
+            return res
+                .sendApiError(
+                    {
+                        title: 'Email already Registered',
+                        detail: 'User with provided email already exists!'
+                    });
         } 
         const user = new UserModel({
             username: username,
@@ -63,8 +93,9 @@ exports.register = function(req, res) {
         });
         user.save(function (err) {
             if (err) {
-                return res.status(422).send({errors: mongooseHelper.normalizeErrors(err.errors)});
+                return res.mongoError(error);
             } 
+            // TODO: send -> status: 'registered' 
             return res.json({'registered': true});
             
         })     
@@ -80,7 +111,7 @@ exports.tokenAuthenticate = function(req,res,next) {
         if (authUser) {
             UserModel.findById(authUser.userID, function(err,validUser){
                 if (err) {
-                    return res.status(422).send({errors: mongooseHelper.normalizeErrors(err.errors)});
+                    return res.mongoError(error);
                 }
                 if (validUser) {
                     res.locals.user = validUser;
@@ -107,5 +138,10 @@ function parseToken(token) {
 }
 
 function notAuthorized(res) {
-    return res.status(401).send({errors: [{title: 'Not Authorized', detail: 'You need to login to get access'}]});
+    return res
+        .status(401)
+        .send({
+            errors:
+                [{ title: 'Not Authorized!', detail: 'You need to log in to get an access!' }]
+        })
 }

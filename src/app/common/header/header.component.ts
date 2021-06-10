@@ -1,31 +1,26 @@
-import { Component } from '@angular/core';
+import { Component, Input } from '@angular/core';
 import { AuthService } from '../../auth/shared/auth.service';
-import { Router} from '@angular/router';
+import { Router } from '@angular/router';
 
 
 @Component({
-  selector: 'bwm-header',
-  templateUrl: './header.component.html',
-  styleUrls: ['./header.component.scss']
+	selector: 'bwm-header',
+	templateUrl: './header.component.html',
+	styleUrls: ['./header.component.scss']
 
 })
 export class HeaderComponent {
-  
-  constructor(public auth: AuthService,
-              private router: Router) {}
 
-  isAuthenticated(): Boolean {
-      return this.auth.isAuthenticated();
-  }
+	@Input('isAuthenticated') isAuthenticated = false;
+	@Input('username') username = '';
+	@Input('logout') logout = () => {};
 
-  logout() {
-    this.auth.logout();
-    this.router.navigate(['/login']) 
-  }
+	constructor(private router: Router) { 
+		}
 
-  search(city: string) {
-    city ? this.router.navigate([`/rentals/${city}/homes`]) : this.router.navigate(['/rentals']);
-  }
-  
+	search(city: string) {
+		city ? this.router.navigate([`/rentals/${city}/homes`]) : this.router.navigate(['/rentals']);
+	}
+
 
 }

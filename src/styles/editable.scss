@@ -1,0 +1,21 @@
+
+.editable-component {
+    display: flex;
+
+    .note {
+        font-size: 10px;
+        font-weight: 200;
+    }
+    .button-container {
+        align-self: center;
+    }
+
+    .btn {
+        &.btn-editable {
+            margin-left: 5px;
+            color: white;
+            font-size: 12px;
+            font-weight: 300;
+        }
+    }
+}

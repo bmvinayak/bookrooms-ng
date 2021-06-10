@@ -2,10 +2,11 @@ import { Pipe, PipeTransform } from '@angular/core';
 import * as moment from 'moment';
 
 @Pipe({
-    name: 'formatDate'
+	name: 'formatDate'
 })
 export class FormatDatePipe implements PipeTransform {
-    transform(value: string): string {
-        return moment(value).format('YYYY/MM/DD');
-    }
+	transform(date: string, dateFormat = 'YYYY/MM/DD'): string {
+		if (!date || typeof date !== 'string') { return ''; }
+		return moment(date).format(dateFormat);
+	}
 }
