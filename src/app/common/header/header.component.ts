@@ -13,10 +13,10 @@ export class HeaderComponent {
 
 	@Input('isAuthenticated') isAuthenticated = false;
 	@Input('username') username = '';
-	@Input('logout') logout = () => {};
+	@Input('logout') logout = () => { };
 
-	constructor(private router: Router) { 
-		}
+	constructor(private router: Router) {
+	}
 
 	search(city: string) {
 		city ? this.router.navigate([`/rentals/${city}/homes`]) : this.router.navigate(['/rentals']);

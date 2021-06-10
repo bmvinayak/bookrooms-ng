@@ -45,7 +45,7 @@ export class TokenInterceptor implements HttpInterceptor {
 					}
 					this.auth.logout();
 					this.router.navigate(
-						['/login'], 
+						['/login'],
 						{
 							queryParams: { Access: 'Unauthorised' }
 						});

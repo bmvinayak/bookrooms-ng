@@ -29,8 +29,8 @@ export class RentalGuard implements CanActivate {
 				map(_ => true),
 				catchError(_ => {
 					this.router.navigate(
-						[`rentals/${rentalId}`], 
-						{queryParams : { Access: 'NotOwner' }});
+						[`rentals/${rentalId}`],
+						{ queryParams: { Access: 'NotOwner' } });
 					return observableOf(false);
 				}));
 
