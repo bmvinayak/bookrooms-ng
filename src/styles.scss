@@ -1,12 +1,17 @@
 /* You can add global styles to this file, and also import other style files */
 @import 'variables';
+@import 'bwm-colors';
+@import 'date-picker';
+@import 'rental-detail';
+@import 'editable';
+
 a {
-  &:hover, &:focus {
-    text-decoration: none;
-  }
+	&:hover, &:focus {
+	text-decoration: none;
+	}
 }
 html,body, p {
-	color: $main-text-color;
+	color: $dark-gray-color;
 }
 
 .apartment {
@@ -45,8 +50,8 @@ font-size: 12px !important;
 }
 
 .btn-bwm {
-	background-color: $main-color !important;
-	border-color: $main-color !important;
+	background-color: $dark-red-color !important;
+	border-color: $dark-red-color !important;
 	color: white;
 	padding: 15px 30px;
 	font-size: 15px;
@@ -56,59 +61,82 @@ font-size: 12px !important;
 		background-color: $main-color !important;
 		border-color: $main-color !important;
 	} 
+
+	
+}
+
+.btn.bwm-btn-main {
+		border-color: $dark-red-color;
+		color: $dark-red-color;
+
+		&:hover, &:focus, &:active {
+			background-color: $dark-red-color;
+			border-color: $dark-red-color;
+			color: white;
+			box-shadow: none;
+		}
+
+		&:disabled {
+			cursor: auto;
+			background-color: transparent;
+			color: $dark-red-color;
+		}
 }
 
 .bwm-form {
 	color: $main-text-color;
-  
+
 	form {
-	  margin-bottom: 10px;
+		margin-bottom: 10px;
 	}
-  
+
 	.alert {
-	  p {
-		margin: 0;
-	  }
+		p {
+			margin: 0;
+		}
 	}
-  
+
 	h1 {
-	  font-weight: 700;
-	  margin-bottom: 30px;
+		font-weight: 700;
+		margin-bottom: 30px;
 	}
 	.image-container {
-	  position: relative;
-  
-	  img {
-		width: 100%;
-		border-radius: 5px;
-	  }
-	}
-  
-	label {
-	  font-size: 12px;
-	}
-  
-	.form-text {
-	  font-size: 13px;
-	}
-  
-	.catchphrase {
-	  text-align: center;
-	  font-size: 42px;
-	  position: absolute;
-	  color: #f1f1f1;
-	  padding: 40px;
-	  background-color: rgba(0,0,0, 0.5);
-	  margin-top: 50px;
-	  letter-spacing: 1px;
-	}
-  }
+		position: relative;
 
-  .ng-valid[required], .ng-valid.required  {
+		img {
+			width: 100%;
+			border-radius: 5px;
+		}
+	}
+
+	label {
+		font-size: 12px;
+	}
+
+	.form-text {
+		font-size: 13px;
+	}
+
+	.catchphrase {
+		text-align: center;
+		font-size: 42px;
+		position: absolute;
+		color: #f1f1f1;
+		padding: 40px;
+		background-color: rgba(0,0,0, 0.5);
+		margin-top: 50px;
+		letter-spacing: 1px;
+	}
+}
+
+.ng-valid[required], .ng-valid.required  {
     border-left: 5px solid #42A948; /* green */
-  }
-  
-  .ng-invalid:not(form)  {
+}
+
+.ng-invalid:not(form)  {
     border-left: 5px solid #a94442; /* red */
-  }
-  
+}
+
+.inline {
+	display: inline-block;
+}

@@ -1,0 +1,13 @@
+<div>
+    <img 
+        *ngIf="!isActiveInput"
+        [src]="transformView(entity[entityfieldName])"
+        class="editable-image {{displayClass}} mb-1"
+    >
+    <bwm-image-upload
+    [imageUploadMode]="'EDIT'"
+     (imageSelected)="onImageLoad()"
+     (imageCancelled)="isActiveInput = false"
+    (imageUploadEmitter)="onImageUpload($event)">
+    </bwm-image-upload>
+</div>

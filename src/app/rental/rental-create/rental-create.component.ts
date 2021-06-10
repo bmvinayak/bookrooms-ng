@@ -3,41 +3,53 @@ import { RentalItem } from '../shared/rental.model';
 import { Router } from '@angular/router';
 
 import { RentalService } from '../shared/rental.service';
-import { HttpErrorResponse } from '@angular/common/http';
+import { validateInputs } from 'src/app/common/validators/functions';
+import { NgForm } from '@angular/forms';
 
 @Component({
-  selector: 'bwm-rental-create',
-  templateUrl: './rental-create.component.html',
-  styleUrls: ['./rental-create.component.scss']
+	selector: 'bwm-rental-create',
+	templateUrl: './rental-create.component.html',
+	styleUrls: ['./rental-create.component.scss']
 })
 export class RentalCreateComponent implements OnInit {
 
-  newRental: RentalItem;
-  rentalCategories = RentalItem.CATEGORIES;
-  rentalcurrencies = RentalItem.CURRENCIES;
-  errors: any[] = [];
+	newRental: RentalItem;
+	rentalCategories = RentalItem.CATEGORIES;
+	rentalcurrencies = RentalItem.CURRENCIES;
+	errors: BwmApi.Error[] = [];
 
-  constructor(private rentalService: RentalService,
-              private router: Router) { }
+	constructor(
+		private rentalService: RentalService,
+		private router: Router) { }
 
-  handleImageChange() {
-    this.newRental.image = "https://booksync-jerga-prod.s3.amazonaws.com/uploads/rental/image/13/image.jpeg"
-  }
+	ngOnInit() {
+		this.newRental = new RentalItem();
+		this.newRental.shared = false;
+		this.newRental.category = this.rentalCategories[0];
+		this.newRental.currency = this.rentalcurrencies[0];
+	}
 
-  ngOnInit() {
-    this.newRental = new RentalItem();
-    this.newRental.shared = false;
-    this.newRental.currency = this.rentalcurrencies[0];
-  }
+	attachImageToRentalItem(imageId: string) {
+		this.newRental.image._id = imageId;
+	}
 
-  createRental() {
-    const rentalServiceObserable = this.rentalService.createRentalItem(this.newRental);
-    rentalServiceObserable.subscribe(
-      (rental: RentalItem) => {
-        this.router.navigate([`/rentals/${rental._id}`])
-      },
-      (errorResponse: HttpErrorResponse) => {
-        this.errors = errorResponse.error.errors;
-      })
-  }
+	get hasImageId(): boolean {
+		return this.newRental.image && this.newRental.image._id ? true : false;
+	}
+
+	createRental(createRentalForm: NgForm) {
+		validateInputs(createRentalForm);
+		if (createRentalForm.invalid) { return; }
+
+		this.errors = [];
+		this.rentalService
+			.createRentalItem(this.newRental)
+			.subscribe(
+				(rental: RentalItem) => {
+					this.router.navigate([`/rentals/${rental._id}`]);
+				},
+				(errorResponse) => {
+					this.errors = errorResponse;
+				});
+	}
 }

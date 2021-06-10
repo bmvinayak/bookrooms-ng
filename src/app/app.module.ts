@@ -13,23 +13,25 @@ import { AppComponent } from './app.component';
 import { HeaderComponent } from './common/header/header.component';
 
 import { AuthModule } from './auth/auth.module';
+import { HttpClientModule } from '@angular/common/http';
 
 
 
 
 @NgModule({
-  declarations: [AppComponent, HeaderComponent],
-  imports: [
-    BrowserModule, 
-    AppRoutingModule, 
-    RentalModule, 
-    AuthModule,
-    ManageModule,
-    NgbModule,
-    BrowserAnimationsModule,
-    ToastrModule.forRoot()
-  ],
-  providers: [],
-  bootstrap: [AppComponent]
+	declarations: [AppComponent, HeaderComponent],
+	imports: [
+		BrowserModule,
+		AppRoutingModule,
+		RentalModule,
+		AuthModule,
+		ManageModule,
+		NgbModule,
+		BrowserAnimationsModule,
+		ToastrModule.forRoot(),
+		HttpClientModule
+	],
+	providers: [],
+	bootstrap: [AppComponent]
 })
 export class AppModule { }

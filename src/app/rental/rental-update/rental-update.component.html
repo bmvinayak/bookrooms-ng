@@ -1,0 +1,128 @@
+<section id="rentalDetails" *ngIf="currentRentalItem">
+    <div class="upper-section">
+        <div class="row">
+            <div class="col-md-6">
+                <bwm-editable-image
+                    [(entity)]="currentRentalItem"
+                    [field]="'image'"
+                    (entityUpdated)="updateRental($event)"
+                    [transformView]="getImageUrl"
+                    [displayClass]="'rental-image'">
+                </bwm-editable-image>
+                <!-- <img src="{{currentRentalItem.image?.url}}" alt=""> -->
+            </div>
+            <div class="col-md-6">
+                <bwm-map
+                    [mapNotifier]="locationSubject"
+                    [location]="rentalLocation">
+                </bwm-map>
+            </div>
+        </div>
+    </div>
+
+    <div class="details-section">
+        <div class="row">
+            <div class="col-md-8">
+                <div class="rental">  
+                    <h2 class="rental-type {{currentRentalItem.category}}">
+                        Shared: 
+                        <bwm-editable-select
+                            [options]="[true, false]"
+                            [(entity)]="currentRentalItem"
+                            [field]="'shared'"
+                            [style]="{'display': 'inline-block'}"
+                            [displayClass]="'rental-type'"
+                            (entityUpdated)="updateRental($event)">
+                        </bwm-editable-select>
+                        Category:
+                        <bwm-editable-select 
+                            [options]="rentalCategories" 
+                            [(entity)]="currentRentalItem" 
+                            [field]="'category'"
+                            [style]="{'display': 'inline-block'}" 
+                            [displayClass]="'rental-type'" 
+                            (entityUpdated)="updateRental($event)">
+                        </bwm-editable-select>
+                    </h2>
+                    <div class="rental-owner">
+                        <img src={{currentRentalItem.image?.url}} alt="">
+                        <span> {{currentRentalItem.owner.username}}</span>
+                    </div>
+                    <bwm-editable-input 
+                        [(entity)]="currentRentalItem"
+                        [field]="'title'"
+                        [displayClass]="'rental-title'"
+                        (entityUpdated)="updateRental($event)">
+                    </bwm-editable-input>
+
+                    <!--<h2 class="rental-city">{{currentRentalItem.city | ucwords}}</h2> -->
+                    <bwm-editable-input 
+                        [(entity)]="currentRentalItem" 
+                        [field]="'city'" 
+                        [transformView]="toUpperCase"
+                        [displayClass]="'rental-city-input'"
+                        (entityUpdated)="updateRental($event)">
+                    </bwm-editable-input>
+
+                    <bwm-editable-input
+                        [(entity)]="currentRentalItem" 
+                        [field]="'street'" 
+                        [transformView]="toUpperCase"
+                        [displayClass]="'rental-city-input'"
+                        (entityUpdated)="updateRental($event)">
+                    </bwm-editable-input>
+
+                    <div class="rental-room-info">
+                        <span><i class="fa fa-building"></i>
+                            <bwm-editable-input 
+                            [(entity)]="currentRentalItem" 
+                            [field]="'bedrooms'" 
+                            [dataType]="'number'"
+                            [style]="{'display': 'inline-block'}"
+                            [displayClass]="'rental-bedrooms'"
+                            (entityUpdated)="updateRental($event)">
+                            </bwm-editable-input> bedrooms
+                        </span>
+                        <span><i class="fa fa-user"></i> {{getBedroomAssets(4)}} guests</span>
+                        <span><i class="fa fa-bed"></i> {{getBedroomAssets(2)}} beds</span>
+                    </div>
+            <!--        <p class="rental-description">
+                        {{currentRentalItem.description}}
+                    </p> -->
+                    <bwm-editable-textarea 
+                        [(entity)]="currentRentalItem" 
+                        [field]="'description'" 
+                        [displayClass]="'rental-description-input'"
+                        [rows]="10"
+                        [cols]="70"
+                        (entityUpdated)="updateRental($event)">
+                    </bwm-editable-textarea>
+                    <hr>
+                    <div class="rental-assets">
+                        <h3 class="title">Assets</h3>
+                        <div class="row">
+                            <div class="col-md-6">
+                                <span><i class="fa fa-asterisk"></i> Cooling</span>
+                                <span><i class="fa fa-thermometer"></i> Heating</span>
+                                <span><i class="fa fa-location-arrow"></i> Iron</span>
+                            </div>
+                            <div class="col-md-6">
+                                <span><i class="fa fa-desktop"></i> Working area</span>
+                                <span><i class="fa fa-cube"></i> Washing machine</span>
+                                <span><i class="fa fa-cube"></i> Dishwasher</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<section id="DidNotFindRental" *ngIf="errors.length>0">
+    <div class="alert alert-danger modal-error">
+        <p *ngFor="let error of errors">
+            {{error.title}} : {{error.detail}}
+        </p>
+    </div>
+    <a href="/">Go to list of Rentals</a>
+</section>

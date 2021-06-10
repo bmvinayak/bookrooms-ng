@@ -1,31 +1,38 @@
 import { Injectable } from '@angular/core';
 import * as moment from 'moment';
-import { Booking } from '../../booking/shared/booking.model';
 
 @Injectable()
 export class HelperService {
 
-    public getRangeOfDates(startAt, endAt) {
-        return this.getRangeOfDateswithFormat(startAt, endAt,Booking.BOOKING_DATE_FORMAT);
-    }
+	public getFormatedRangeOfDates(startAt, endAt, dateFormat) {
+		const rangeOfDates = [];
+		const mEndAt = moment(endAt);
+		let givenDate = moment(startAt);
 
-    public getRangeOfDateswithFormat(startAt, endAt, dateFormat) {
-        const bookedDates = [];
-        const mEndAt = moment(endAt);
-        let bookedDate = moment(startAt);
- 
-        while(bookedDate <= mEndAt) {
-            bookedDates.push(bookedDate.format(dateFormat));
-            bookedDate = bookedDate.add(1, 'day');
-        }
-        return bookedDates;
-    }
+		while (givenDate <= mEndAt) {
+			rangeOfDates.push(givenDate.format(dateFormat));
+			givenDate = givenDate.add(1, 'day');
+		}
+		return rangeOfDates;
+	}
 
-    private formatDate(date, dateFormat){
-        return moment(date).format(dateFormat);
-    }
+	public getRangeOfDates(startAt: string, endAt: string): string[] {
+		const rangeOfDates = [];
+		const mEndAt = moment(new Date(endAt));
+		let givenDate = moment(new Date(startAt));
 
-    public getFormatedDate(date){
-        return this.formatDate(date, Booking.BOOKING_DATE_FORMAT);
-    }
+		while (givenDate <= mEndAt) {
+			rangeOfDates.push(givenDate.format());
+			givenDate = givenDate.add(1, 'day');
+		}
+		return rangeOfDates;
+	}
+	public getFormatedDate(date, dateFormat) {
+		if (!date) { return ''; }
+		return moment(date, dateFormat);
+	}
+
+	isDateInPast(date: moment.Moment): boolean {
+		return date.diff(moment(), 'days') < 0;
+	}
 }

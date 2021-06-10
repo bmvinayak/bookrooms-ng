@@ -1,0 +1,67 @@
+<section id="Bookings">
+	<h1 class="page-title">{{title}}</h1>
+	<div class="row">
+		<ng-container *ngIf="bookings && bookings.length>0">
+			<!-- Check for bookings length -->
+			<div class='col-md-4' *ngFor="let booking of bookings let i = index">
+				<!-- Iterate bookings here -->
+				<div class="card text-center">
+					<div *ngIf="title =='Bookings Received'" class="card-header">
+						From: {{booking.user.username}}
+						<!-- rental category -->
+					</div>
+					<div class="card-block">
+						<ng-container *ngIf="booking.rentalItem">
+							<h4 class="card-title">{{booking.rentalItem.title}} in {{booking.rentalItem.city |
+								ucwords }}</h4> <!-- rental title and city -->
+							<p class="card-text booking-desc">{{booking.rentalItem.category | ucwords}}:
+								{{booking.rentalItem.description}}</p>
+							<!-- rental description -->
+						</ng-container>
+						<!-- booking startAt - endAt | days -->
+						<p class="card-text booking-days"> {{booking.startAt | formatDate}} - {{booking.endAt |
+							formatDate}} | {{booking.days}} days</p>
+						<p class="card-text booking-cancelByDate"> [Can Cancel by: {{booking.cancelByDate |
+							formatDate}}]</p>
+						<!-- booking price -->
+						<p class="card-text">
+							<span>Price: </span>
+							<span class="booking-price-value">
+								{{booking.currency}} {{booking.dailyRate}} per night, Total {{booking.currency}}
+								{{booking.totalAmount}}
+							</span>
+						</p>
+						<!-- link to rental detail -->
+						<a *ngIf="booking.rentalItem" class="btn btn-bwm"
+							[routerLink]="'/rentals/' + booking.rentalItem._id">Go to Rental</a>
+						<button *ngIf="bookingDeleteIndex!==i && title =='My Bookings'"
+							(click)="bookingDeleteIndex=i; errors=[]" type="button" class="ml-1 btn btn-bwm">
+							Cancel Booking
+						</button>
+						<!-- Delete Rental Button -->
+						<span *ngIf="bookingDeleteIndex === i && title =='My Bookings'">
+							<p class="confirm-warning">Are you sure you want to Cancel Booking? </p>
+							<button (click)="deleteBooking(booking._id)" class="btn btn-success">Yes</button>
+							<button (click)="bookingDeleteIndex=undefined" class="btn btn-danger">No</button>
+						</span>
+
+						<!-- <button class="ml-1 btn btn-bwm">Cancel</button> -->
+					</div>
+					<div class="card-footer text-muted">
+						Created {{booking.createdAt | formatDate}}
+					</div>
+				</div>
+			</div>
+		</ng-container>
+		<!-- check if booking length == 0 -->
+		<div *ngIf="bookings && bookings.length==0" class="alert alert-warning">
+			<div *ngIf="title =='Bookings Received'">
+				You have not received any bookings on any of your rentals
+			</div>
+			<div *ngIf="title =='My Bookings'">
+				You have no bookings created go to rentals section and book your place today.
+				<a class="btn btn-bwm" routerLink="/rentals">Book Rentals</a> <!-- link to /rentals -->
+			</div>
+		</div>
+	</div>
+</section>

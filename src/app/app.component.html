@@ -1,4 +1,8 @@
-<bwm-header></bwm-header>
+<bwm-header
+  [isAuthenticated]="auth.isAuthenticated"
+  [username]="auth.username"
+  [logout]="logout">
+</bwm-header>
 <div class="container">
   <router-outlet> </router-outlet>
 </div>
