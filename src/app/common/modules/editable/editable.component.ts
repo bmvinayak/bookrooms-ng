@@ -1,6 +1,5 @@
 import { Component, OnInit, Input, Output, EventEmitter, Directive } from '@angular/core';
 
-
 @Directive()
 export class EditableComponent implements OnInit {
 	isActiveInput = false;
@@ -18,19 +17,18 @@ export class EditableComponent implements OnInit {
 	@Input('style') style: any;
 	@Input('transformView') transformView = (value) => {
 		return value;
-	}
+	};
 
-	constructor() { }
+	constructor() {}
 
-	ngOnInit() {
-	}
+	ngOnInit() {}
 
 	updateEntity() {
 		const updatedEntityValue = this.entity[this.entityfieldName];
 		if (updatedEntityValue !== this.originalEntityValue) {
 			this.entityUpdated.emit({
 				data: { [this.entityfieldName]: updatedEntityValue },
-				notifier: this.inputNotifier
+				notifier: this.inputNotifier,
 			});
 		}
 	}
@@ -43,7 +41,7 @@ export class EditableComponent implements OnInit {
 		}
 		this.setOriginalValue();
 		this.isActiveInput = false;
-	}
+	};
 
 	cancelUpdate() {
 		this.isActiveInput = false;
@@ -61,5 +59,4 @@ export class EditableComponent implements OnInit {
 	protected get entityValue() {
 		return this.entity[this.entityfieldName];
 	}
-
 }
