@@ -1,4 +1,4 @@
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 
 import { EditableTextareaComponent } from './editable-textarea.component';
 
@@ -6,7 +6,7 @@ describe('EditableTextareaComponent', () => {
 	let component: EditableTextareaComponent;
 	let fixture: ComponentFixture<EditableTextareaComponent>;
 
-	beforeEach(async(() => {
+	beforeEach(waitForAsync(() => {
 		TestBed.configureTestingModule({
 			declarations: [EditableTextareaComponent]
 		})
