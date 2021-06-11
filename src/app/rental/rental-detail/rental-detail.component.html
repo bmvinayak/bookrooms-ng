@@ -24,8 +24,8 @@
         <div class="rental">
           <h2 class="rental-type {{currentRentalItem.category}}">{{currentRentalItem.shared ? 'Shared' : 'Entire'}} {{currentRentalItem.category}}</h2>
           <div class="rental-owner">
-              <img src={{currentRentalItem.image?.url}} alt="">
-              <span> {{currentRentalItem.owner.username}}</span>
+              <img src="{{currentRentalItem.image?.url}}" alt="">
+              <span> Owner: {{currentRentalItem.owner.username}} </span>
           </div>
           <h1 class="rental-title">{{currentRentalItem.title}}</h1>
           <h2 class="rental-city">{{currentRentalItem.street | ucwords}}, {{currentRentalItem.city | ucwords}}</h2>

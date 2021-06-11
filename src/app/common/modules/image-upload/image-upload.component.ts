@@ -8,7 +8,6 @@ export class ImageSnippet {
 	imageFileName: string;
 	imageFileType: string;
 
-
 	constructor(imageFileName: string, imageFileType: string) {
 		this.imageFileName = imageFileName;
 		this.imageFileType = imageFileType;
@@ -18,10 +17,9 @@ export class ImageSnippet {
 @Component({
 	selector: 'bwm-image-upload',
 	templateUrl: './image-upload.component.html',
-	styleUrls: ['./image-upload.component.scss']
+	styleUrls: ['./image-upload.component.scss'],
 })
 export class ImageUploadComponent implements OnInit, OnDestroy {
-
 	@Output('imageUploadEmitter') imageUploadEmitter = new EventEmitter();
 	@Output('imageSelected') imageSelected = new EventEmitter();
 	@Output('imageCancelled') imageCancelled = new EventEmitter();
@@ -34,7 +32,7 @@ export class ImageUploadComponent implements OnInit, OnDestroy {
 
 	private fileReader = new FileReader();
 
-	constructor(private imageUploadService: ImageUploadService) { }
+	constructor(private imageUploadService: ImageUploadService) {}
 
 	ngOnInit() {
 		this.addFileLoadingListener();
@@ -54,21 +52,20 @@ export class ImageUploadComponent implements OnInit, OnDestroy {
 	}
 
 	uploadImage(fileReference: any) {
-
 		this.selectedImage.status = 'PENDING';
-		this.imageUploadService
-			.uploadImage(this.selectedImage)
-			.subscribe((uploadedImage: any) => {
+		this.imageUploadService.uploadImage(this.selectedImage).subscribe(
+			(uploadedImage: any) => {
 				this.uploadedImageId = uploadedImage._id;
 				this.imageUploadEmitter.emit(uploadedImage._id);
 				this.selectedImage.status = 'UPLOADED';
 				this.imageChangedEvent = null;
-			}, () => {
+			},
+			() => {
 				this.selectedImage.status = 'ERROR';
 				this.imageChangedEvent = null;
 				fileReference.value = null;
-			});
-
+			}
+		);
 	}
 
 	cancelImage(fileReference: any) {
@@ -80,15 +77,15 @@ export class ImageUploadComponent implements OnInit, OnDestroy {
 
 	removeImage() {
 		this.selectedImage.status = 'PENDING';
-		this.imageUploadService
-			.deleteImage(this.uploadedImageId)
-			.subscribe(() => {
+		this.imageUploadService.deleteImage(this.uploadedImageId).subscribe(
+			() => {
 				this.selectedImage = null;
 				this.imageChangedEvent = null;
-			}, () => {
+			},
+			() => {
 				this.selectedImage.status = 'DELETE_ERROR';
-			});
-
+			}
+		);
 	}
 
 	private handleImageLoad = (event: any) => {
@@ -96,7 +93,7 @@ export class ImageUploadComponent implements OnInit, OnDestroy {
 		const { result } = event.target;
 		this.selectedImage.src = result;
 		this.selectedImage.status = 'SELECTED';
-	}
+	};
 
 	private addFileLoadingListener() {
 		this.fileReader.addEventListener('load', this.handleImageLoad);
@@ -105,7 +102,6 @@ export class ImageUploadComponent implements OnInit, OnDestroy {
 	private removeFileLoadingListener() {
 		this.fileReader.removeEventListener('load', this.handleImageLoad);
 	}
-
 
 	fileChangeEvent(event: any): void {
 		this.imageChangedEvent = event;

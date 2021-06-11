@@ -82,7 +82,7 @@ exports.getRentalById = async (req, res) => {
     try {
         foundRentalItem = await RentalItemModel
             .findById(rentalId)
-            .populate('owner', 'username -_id')
+            .populate('owner', 'username email -_id')
             .populate('image');
         //Did not find the Rental with the requested rentalId
         if (foundRentalItem == null) {
