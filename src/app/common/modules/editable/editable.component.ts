@@ -1,6 +1,7 @@
-import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
+import { Component, OnInit, Input, Output, EventEmitter, Directive } from '@angular/core';
 
 
+@Directive()
 export class EditableComponent implements OnInit {
 	isActiveInput = false;
 	public entityfieldName: string;

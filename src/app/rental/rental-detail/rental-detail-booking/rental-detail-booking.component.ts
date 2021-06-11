@@ -24,7 +24,7 @@ export class RentalDetailBookingComponent implements OnInit {
 	@Input() rental: RentalItem;
 	bookingDateFormat = Booking.BOOKING_DATE_FORMAT;
 	selectedDates: { startDate: Moment, endDate: Moment };
-	@ViewChild(DaterangePickerComponent, { static: false }) private picker: DaterangePickerComponent;
+	@ViewChild(DaterangePickerComponent) private picker: DaterangePickerComponent;
 	newBooking: Booking;
 	daterange: any = {};
 	allbookedDates: string[] = [];
