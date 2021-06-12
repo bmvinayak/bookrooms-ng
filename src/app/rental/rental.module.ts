@@ -3,7 +3,6 @@ import { CommonModule } from '@angular/common';
 import { AppRoutingModule } from '../app-routing.module';
 import { NgPipesModule } from 'ngx-pipes';
 import { MapModule } from '../common/modules/map/map.module';
-import { Daterangepicker } from 'ng2-daterangepicker';
 import { NgxDaterangepickerMd } from 'ngx-daterangepicker-material';
 import { FormsModule } from '@angular/forms';
 import { EditableModule } from '../common/modules/editable/editable.module';
@@ -31,7 +30,7 @@ import { ImageUploadModule } from '../common/modules/image-upload/image-upload.m
 		RentalDetailBookingComponent,
 		RentalSearchComponent,
 		RentalCreateComponent,
-		RentalUpdateComponent
+		RentalUpdateComponent,
 	],
 	imports: [
 		CommonModule,
@@ -39,14 +38,11 @@ import { ImageUploadModule } from '../common/modules/image-upload/image-upload.m
 		AppRoutingModule,
 		NgPipesModule,
 		MapModule,
-		Daterangepicker,
 		NgxDaterangepickerMd.forRoot(),
 		FormsModule,
 		EditableModule,
-		SharedRentalModule
+		SharedRentalModule,
 	],
-	providers: [
-		HelperService]
+	providers: [HelperService],
 })
-
-export class RentalModule { }
+export class RentalModule {}
