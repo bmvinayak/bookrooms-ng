@@ -36,7 +36,7 @@
     "datauri": "^3.0.0",
     "dayjs": "^1.10.5",
     "dotenv": "^8.6.0",
-    "express": "^4.17.1",
+    "express": "^4.17.3",
     "font-awesome": "^4.7.0",
     "jquery": "^3.6.0",
     "jshint": "^2.13.0",
